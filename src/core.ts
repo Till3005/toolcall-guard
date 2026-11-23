@@ -152,15 +152,22 @@ interface ToolCallPart {
 }
 
 /**
- * UIMessage part states that must never produce a credential: streaming
- * parts carry incomplete args, and output-* parts mean the call already
- * executed — re-confirming would double-run it.
+ * Part states that must never produce a credential:
+ *  - input-streaming: args are still partial (DeepPartial input)
+ *  - output-*: the call already executed or errored — re-confirming
+ *    would double-run it
+ *  - approval-responded: an approval decision already resolved the
+ *    proposal (approved → executed by the SDK; denied → must not run).
+ *    approval-requested stays eligible: the proposal is complete and
+ *    still pending, so a credential may back whichever mechanism
+ *    collects the decision.
  */
 const SKIPPED_PART_STATES = new Set([
   "input-streaming",
   "output-available",
   "output-error",
   "output-denied",
+  "approval-responded",
 ])
 
 function partToolName(part: ToolCallPart): string | null {

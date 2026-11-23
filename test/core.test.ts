@@ -206,6 +206,7 @@ describe("extractWriteToolCalls — pull write calls from model output", () => {
         content: [
           { type: "tool-createOrder", toolCallId: "c1", state: "input-streaming", input: { name: "par" } },
           { type: "tool-createOrder", toolCallId: "c2", state: "output-available", input: { name: "done" }, output: {} },
+          { type: "tool-createOrder", toolCallId: "c4", state: "approval-responded", input: { name: "denied" }, approval: { id: "a1", approved: false } },
           { type: "tool-createOrder", toolCallId: "c3", state: "input-available", input: { name: "ready" } },
         ],
       },
