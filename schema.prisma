@@ -1,0 +1,27 @@
+// Paste this model into your Prisma schema, then `prisma migrate dev`.
+// Adjust the @@map name if your conventions differ; the adapter only
+// requires the model to be reachable as `prisma.pendingToolCall`.
+
+model PendingToolCall {
+  id             String    @id @default(cuid())
+  conversationId String
+  toolCallId     String
+  toolName       String
+  // sha256 of canonicalArgsJson(args) — binds the approved arguments.
+  argsHash       String
+  // Optional: sealed canonical args for audit/preview (see crypto.ts).
+  sealedArgs     String?
+  // The principal allowed to consume this credential.
+  ownerId        String
+  // Optional tenant/workspace discriminator; null = unscoped.
+  scopeId        String?
+  createdAt      DateTime  @default(now())
+  expiresAt      DateTime
+  consumedAt     DateTime?
+
+  // Correlation key: one credential per (conversation, tool call).
+  @@unique([conversationId, toolCallId])
+  @@index([ownerId, scopeId])
+  @@index([expiresAt])
+  @@map("pending_tool_calls")
+}

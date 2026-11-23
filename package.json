@@ -1,0 +1,56 @@
+{
+  "name": "toolcall-guard",
+  "version": "0.1.0",
+  "description": "Single-use approval credentials for LLM tool calls. Bind a model's proposed write to an explicit human confirmation — replay-proof, forgery-proof, argument-tamper-proof.",
+  "keywords": [
+    "ai",
+    "llm",
+    "agent",
+    "tool-calling",
+    "human-in-the-loop",
+    "hitl",
+    "approval",
+    "vercel-ai-sdk",
+    "security"
+  ],
+  "license": "MIT",
+  "author": "Till3005",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Till3005/toolcall-guard.git"
+  },
+  "homepage": "https://github.com/Till3005/toolcall-guard#readme",
+  "bugs": "https://github.com/Till3005/toolcall-guard/issues",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "schema.prisma",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.2",
+    "vitest": "^5.1.1"
+  }
+}
